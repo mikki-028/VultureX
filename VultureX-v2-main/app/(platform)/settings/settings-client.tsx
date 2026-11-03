@@ -120,7 +120,7 @@ export function SettingsClient({ user, startup, investor, impact }: { user: User
 
           {/* Save button */}
           <button onClick={save} disabled={status === "loading" || !isDirty}
-            className="w-full py-2.5 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+            className="w-full py-2.5 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
             {status === "loading" ? <><Loader2 size={12} className="animate-spin" /> Saving...</> : isDirty ? "Save changes" : "No changes"}
           </button>
           {status === "success" && (

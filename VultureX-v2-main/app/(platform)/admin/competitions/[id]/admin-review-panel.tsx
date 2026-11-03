@@ -110,7 +110,7 @@ export function AdminReviewPanel({
               type="button"
               onClick={() => run("approve")}
               disabled={busy !== null}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
             >
               {busy === "approve" ? (
                 <Loader2 size={10} className="animate-spin" />
@@ -143,7 +143,7 @@ export function AdminReviewPanel({
             type="button"
             onClick={() => run("publish")}
             disabled={busy !== null}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
           >
             {busy === "publish" ? (
               <Loader2 size={10} className="animate-spin" />
@@ -187,7 +187,7 @@ export function AdminReviewPanel({
               type="button"
               onClick={() => run("approve", "winner")}
               disabled={busy !== null}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
             >
               {busy === "approve" ? (
                 <Loader2 size={10} className="animate-spin" />

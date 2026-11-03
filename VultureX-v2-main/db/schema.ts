@@ -834,6 +834,8 @@ export const NOTIFICATION_TYPES = [
   "competition_application_status",
   "competition_winner_proposed",
   "competition_winner_announced",
+  // In-app reminders reuse the existing notification bell and unread count.
+  "reminder_due",
 ] as const;
 
 export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
@@ -874,6 +876,11 @@ export const notifications = pgTable(
       () => competitionApplications.id,
       { onDelete: "cascade" }
     ),
+    // Set for reminder_due notifications; cascades when the reminder is deleted.
+    reminderId: uuid("reminder_id").references(
+      (): AnyPgColumn => reminders.id,
+      { onDelete: "cascade" }
+    ),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),
@@ -889,6 +896,7 @@ export const notifications = pgTable(
       table.readAt
     ),
     index("idx_notifications_competition").on(table.competitionId),
+    index("idx_notifications_reminder").on(table.reminderId),
     uniqueIndex("unique_notification_request")
       .on(table.recipientUserId, table.type, table.requestId)
       .where(sql`${table.requestId} is not null`),
@@ -1131,4 +1139,281 @@ export const pitchDeckEvents = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   },
   (table) => [index("idx_pde_request").on(table.requestId)]
+);
+
+// ============================================
+// FOUNDER PROFILES (Phase 2)
+// ============================================
+// Personalisation data that does not belong on the public startup profile.
+// One row per account, owned through `user_id`; the startup profile remains the
+// single source of company facts, so nothing here duplicates it.
+
+export const FOUNDER_LANGUAGES = ["en", "hi", "pa"] as const;
+export type FounderLanguage = (typeof FOUNDER_LANGUAGES)[number];
+
+export const COLLABORATION_VISIBILITY = ["public", "network", "private"] as const;
+export type CollaborationVisibility = (typeof COLLABORATION_VISIBILITY)[number];
+
+export type ReminderPreferences = {
+  inApp: boolean;
+  email: boolean;
+  taskDue: boolean;
+  milestones: boolean;
+  clinics: boolean;
+};
+
+export const DEFAULT_REMINDER_PREFERENCES: ReminderPreferences = {
+  inApp: true,
+  email: false,
+  taskDue: true,
+  milestones: true,
+  clinics: true,
+};
+
+export const founderProfiles = pgTable("founder_profiles", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" })
+    .unique(),
+  location: text("location"),
+  preferredLanguage: text("preferred_language", { enum: FOUNDER_LANGUAGES })
+    .notNull()
+    .default("en"),
+  currentObjective: text("current_objective"),
+  challenges: text("challenges").array().notNull().default([]),
+  guidanceAreas: text("guidance_areas").array().notNull().default([]),
+  priorities: text("priorities").array().notNull().default([]),
+  learningInterests: text("learning_interests").array().notNull().default([]),
+  fundingInterest: text("funding_interest"),
+  marketingNeeds: text("marketing_needs").array().notNull().default([]),
+  collaborationInterests: text("collaboration_interests").array().notNull().default([]),
+  recommendationTypes: text("recommendation_types").array().notNull().default([
+    "roadmap",
+    "resources",
+    "opportunities",
+  ]),
+  reminderPreferences: jsonb("reminder_preferences")
+    .$type<ReminderPreferences>()
+    .notNull()
+    .default(DEFAULT_REMINDER_PREFERENCES),
+  profileVisibility: boolean("profile_visibility").notNull().default(true),
+  collaborationVisibility: text("collaboration_visibility", {
+    enum: COLLABORATION_VISIBILITY,
+  })
+    .notNull()
+    .default("private"),
+  onboardingCompletedAt: timestamp("onboarding_completed_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+// ============================================
+// FOUNDER ROADMAP (Phase 2, Session 2)
+// ============================================
+// A roadmap is owned by both the account and its startup. Template tasks are
+// inserted only when the founder explicitly builds the roadmap; no task is
+// pre-completed and no progress is inferred from the startup profile.
+
+export const ROADMAP_TASK_STATUSES = [
+  "not_started",
+  "in_progress",
+  "completed",
+  "skipped",
+] as const;
+export type RoadmapTaskStatus = (typeof ROADMAP_TASK_STATUSES)[number];
+
+export const ROADMAP_TASK_PRIORITIES = ["high", "medium", "low"] as const;
+export type RoadmapTaskPriority = (typeof ROADMAP_TASK_PRIORITIES)[number];
+
+export const ROADMAP_TASK_SOURCES = ["template", "custom"] as const;
+export type RoadmapTaskSource = (typeof ROADMAP_TASK_SOURCES)[number];
+
+export const ROADMAP_MILESTONE_STATUSES = [
+  "planned",
+  "in_progress",
+  "achieved",
+] as const;
+export type RoadmapMilestoneStatus = (typeof ROADMAP_MILESTONE_STATUSES)[number];
+
+export const roadmapTasks = pgTable(
+  "roadmap_tasks",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    startupId: uuid("startup_id")
+      .references(() => startups.id, { onDelete: "cascade" })
+      .notNull(),
+    // Stable template key (or generated custom key) unique per startup.
+    taskKey: text("task_key").notNull(),
+    stage: text("stage").notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    category: text("category").notNull().default("General"),
+    priority: text("priority", { enum: ROADMAP_TASK_PRIORITIES })
+      .notNull()
+      .default("medium"),
+    status: text("status", { enum: ROADMAP_TASK_STATUSES })
+      .notNull()
+      .default("not_started"),
+    dueDate: timestamp("due_date", { withTimezone: true }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    sortOrder: integer("sort_order").notNull().default(0),
+    source: text("source", { enum: ROADMAP_TASK_SOURCES })
+      .notNull()
+      .default("template"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("unique_roadmap_task").on(table.startupId, table.taskKey),
+    index("idx_roadmap_tasks_startup_status").on(
+      table.startupId,
+      table.status,
+      table.sortOrder
+    ),
+    index("idx_roadmap_tasks_user").on(table.userId),
+    check(
+      "roadmap_task_title_length",
+      sql`char_length(${table.title}) between 1 and 160`
+    ),
+    check(
+      "roadmap_task_description_length",
+      sql`${table.description} is null or char_length(${table.description}) <= 1000`
+    ),
+  ]
+);
+
+export const roadmapMilestones = pgTable(
+  "roadmap_milestones",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    startupId: uuid("startup_id")
+      .references(() => startups.id, { onDelete: "cascade" })
+      .notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    targetDate: timestamp("target_date", { withTimezone: true }),
+    status: text("status", { enum: ROADMAP_MILESTONE_STATUSES })
+      .notNull()
+      .default("planned"),
+    achievedAt: timestamp("achieved_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("idx_roadmap_milestones_startup").on(
+      table.startupId,
+      table.status,
+      table.targetDate
+    ),
+    index("idx_roadmap_milestones_user").on(table.userId),
+    check(
+      "roadmap_milestone_title_length",
+      sql`char_length(${table.title}) between 1 and 160`
+    ),
+    check(
+      "roadmap_milestone_description_length",
+      sql`${table.description} is null or char_length(${table.description}) <= 1000`
+    ),
+  ]
+);
+
+// ============================================
+// SAVED RESOURCES (Phase 2, Session 3)
+// ============================================
+// A founder saves a Knowledge Hub entry by its stable server-side key. The
+// snapshot fields keep the saved view readable if the hub copy later changes;
+// the key remains the deduplication and ownership boundary.
+
+export const savedResources = pgTable(
+  "saved_resources",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    resourceKey: text("resource_key").notNull(),
+    title: text("title").notNull(),
+    category: text("category").notNull(),
+    description: text("description"),
+    href: text("href").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("unique_saved_resource").on(table.userId, table.resourceKey),
+    index("idx_saved_resources_user").on(table.userId, table.createdAt),
+    index("idx_saved_resources_category").on(table.userId, table.category),
+    check(
+      "saved_resource_title_length",
+      sql`char_length(${table.title}) between 1 and 160`
+    ),
+    check(
+      "saved_resource_key_length",
+      sql`char_length(${table.resourceKey}) between 1 and 2048`
+    ),
+    check(
+      "saved_resource_description_length",
+      sql`${table.description} is null or char_length(${table.description}) <= 1000`
+    ),
+  ]
+);
+
+// ============================================
+// REMINDERS (Phase 2, Session 3)
+// ============================================
+// A reminder is independent of its linked task: completing one never changes
+// the other. dueAt is always stored in UTC; a date-only reminder uses 23:59 UTC
+// and hasTime=false so it means "by the end of that day".
+
+export const reminders = pgTable(
+  "reminders",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    dueAt: timestamp("due_at", { withTimezone: true }).notNull(),
+    hasTime: boolean("has_time").notNull().default(false),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    roadmapTaskId: uuid("roadmap_task_id").references(() => roadmapTasks.id, {
+      onDelete: "set null",
+    }),
+    savedResourceId: uuid("saved_resource_id").references(
+      () => savedResources.id,
+      { onDelete: "set null" }
+    ),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("idx_reminders_user_due").on(table.userId, table.completedAt, table.dueAt),
+    index("idx_reminders_roadmap_task").on(table.userId, table.roadmapTaskId),
+    check("reminder_title_length", sql`char_length(${table.title}) between 1 and 160`),
+    check(
+      "reminder_description_length",
+      sql`${table.description} is null or char_length(${table.description}) <= 1000`
+    ),
+  ]
 );

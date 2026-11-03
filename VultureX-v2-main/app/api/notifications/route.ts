@@ -6,6 +6,7 @@ import {
   markAllNotificationsRead,
   markNotificationRead,
 } from "@/features/connections";
+import { syncReminderNotifications } from "@/features/reminders";
 
 // GET /api/notifications -> latest notifications + unread count
 export async function GET() {
@@ -15,6 +16,11 @@ export async function GET() {
   }
 
   try {
+    // Generate due/overdue reminder alerts before reading; the dedupe key makes
+    // this safe to run on every poll.
+    await syncReminderNotifications(user.id).catch((error) => {
+      console.error("Failed to sync reminder notifications:", error);
+    });
     const data = await getNotifications(user.id);
     return NextResponse.json(data, {
       headers: { "Cache-Control": "private, no-store" },

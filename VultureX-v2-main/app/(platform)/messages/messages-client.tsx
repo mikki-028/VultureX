@@ -380,7 +380,7 @@ export function MessagesClient({
                           : "Connected — say hello"}
                       </p>
                       {conversation.unreadCount > 0 && (
-                        <span className="min-w-[16px] h-[16px] px-1 rounded-full bg-[var(--accent)] text-[#171717] text-[9px] font-bold flex items-center justify-center tabular-nums">
+                        <span className="min-w-[16px] h-[16px] px-1 rounded-full bg-[var(--accent-fill)] text-[var(--accent-foreground)] text-[9px] font-bold flex items-center justify-center tabular-nums">
                           {conversation.unreadCount > 9 ? "9+" : conversation.unreadCount}
                         </span>
                       )}
@@ -506,7 +506,7 @@ export function MessagesClient({
                           <div
                             className={`px-3 py-2 rounded-xl text-xs leading-relaxed whitespace-pre-wrap break-words ${
                               message.mine
-                                ? "bg-[var(--accent)] text-[#171717] rounded-br-sm"
+                                ? "bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-br-sm"
                                 : "bg-[var(--bg-elevated)] text-[var(--text)] border border-[var(--border)] rounded-bl-sm"
                             }`}
                           >
@@ -555,7 +555,7 @@ export function MessagesClient({
                   type="button"
                   onClick={send}
                   disabled={sending || !draft.trim()}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   {sending ? (
                     <Loader2 size={12} className="animate-spin" />

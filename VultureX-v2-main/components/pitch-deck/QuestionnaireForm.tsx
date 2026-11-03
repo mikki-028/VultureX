@@ -227,7 +227,7 @@ export function QuestionnaireForm({ requestId, initialAnswers, initialBatch, sta
             >
               <div
                 className={`h-1.5 rounded-full transition-colors ${
-                  done ? "bg-[var(--accent)]" : active ? "bg-[var(--amber)]" : "bg-[var(--border)]"
+                  done ? "bg-[var(--accent-fill)]" : active ? "bg-[var(--amber)]" : "bg-[var(--border)]"
                 }`}
               />
               <p className={`text-[10px] mt-1.5 flex items-center gap-1 ${active ? "font-medium text-[var(--text)]" : "text-[var(--text-muted)]"}`}>
@@ -333,7 +333,7 @@ export function QuestionnaireForm({ requestId, initialAnswers, initialBatch, sta
           <button
             onClick={continueNext}
             disabled={submitting || locked}
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
           >
             {submitting ? (
               <><Loader2 size={14} className="animate-spin" /> Submitting…</>

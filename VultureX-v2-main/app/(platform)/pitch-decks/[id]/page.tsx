@@ -77,7 +77,7 @@ export default async function PitchDeckRequestPage({
             </p>
             <Link
               href={`/pitch-decks/${request.id}/questionnaire`}
-              className="px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+              className="px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
             >
               Resume batch {request.currentBatch}
             </Link>
@@ -90,7 +90,7 @@ export default async function PitchDeckRequestPage({
             </p>
             <Link
               href={`/pitch-decks/${request.id}/summary`}
-              className="px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+              className="px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
             >
               Review &amp; approve
             </Link>
@@ -119,7 +119,7 @@ export default async function PitchDeckRequestPage({
             <div className="flex items-center gap-2">
               <a
                 href={`/api/files/${published.id}?download=1`}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
               >
                 <Download size={12} /> Download pitch deck
               </a>

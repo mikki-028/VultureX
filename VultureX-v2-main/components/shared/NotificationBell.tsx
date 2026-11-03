@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Bell, Check, Loader2, MessageSquare, Sparkles, Trophy, X } from "lucide-react";
+import { Bell, CalendarClock, Check, Loader2, MessageSquare, Sparkles, Trophy, X } from "lucide-react";
 import { refreshBadges } from "./use-unread-badges";
 
 type NotificationItem = {
@@ -18,7 +18,8 @@ type NotificationItem = {
     | "competition_application"
     | "competition_application_status"
     | "competition_winner_proposed"
-    | "competition_winner_announced";
+    | "competition_winner_announced"
+    | "reminder_due";
   body: string | null;
   createdAt: string;
   readAt: string | null;
@@ -35,6 +36,7 @@ type NotificationItem = {
   conversationId: string | null;
   competitionId: string | null;
   applicationId: string | null;
+  reminderId: string | null;
   href: string;
 };
 
@@ -215,7 +217,7 @@ export function NotificationBell() {
       >
         <Bell size={15} />
         {unread > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 min-w-[14px] h-[14px] px-1 rounded-full bg-[var(--accent)] text-[#171717] text-[9px] font-bold flex items-center justify-center tabular-nums">
+          <span className="absolute -top-0.5 -right-0.5 min-w-[14px] h-[14px] px-1 rounded-full bg-[var(--accent-fill)] text-[var(--accent-foreground)] text-[9px] font-bold flex items-center justify-center tabular-nums">
             {unread > 9 ? "9+" : unread}
           </span>
         )}
@@ -288,7 +290,7 @@ export function NotificationBell() {
                             {timeAgo(item.createdAt)}
                           </span>
                           {!item.readAt && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" aria-label="Unread" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-fill)]" aria-label="Unread" />
                           )}
                           {item.actor?.href && (
                             <Link
@@ -307,7 +309,7 @@ export function NotificationBell() {
                               type="button"
                               onClick={() => respond(item, "accept")}
                               disabled={working === item.id}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
                             >
                               {working === item.id ? (
                                 <Loader2 size={9} className="animate-spin" />
@@ -337,6 +339,19 @@ export function NotificationBell() {
                             className="inline-flex items-center gap-1 mt-2 text-[10px] font-medium text-[var(--green)] hover:underline"
                           >
                             <MessageSquare size={10} /> Open conversation
+                          </Link>
+                        )}
+
+                        {item.type === "reminder_due" && (
+                          <Link
+                            href={item.href}
+                            onClick={() => {
+                              setOpen(false);
+                              void markRead(item.id);
+                            }}
+                            className="inline-flex items-center gap-1 mt-2 text-[10px] font-medium text-[var(--accent)] hover:underline"
+                          >
+                            <CalendarClock size={10} /> View reminders
                           </Link>
                         )}
 

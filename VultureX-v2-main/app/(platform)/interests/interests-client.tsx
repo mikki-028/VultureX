@@ -197,7 +197,7 @@ export function InterestsClient({ role, initialTab }: { role: string; initialTab
                 </span>
               )}
               {key === "incoming" && pending > 0 && (
-                <span className="absolute -top-0.5 right-0 w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                <span className="absolute -top-0.5 right-0 w-1.5 h-1.5 rounded-full bg-[var(--accent-fill)]" />
               )}
             </button>
           );
@@ -269,7 +269,7 @@ export function InterestsClient({ role, initialTab }: { role: string; initialTab
                           type="button"
                           onClick={() => respond(item.id, "accept")}
                           disabled={working === item.id}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-50"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-50"
                         >
                           {working === item.id ? (
                             <Loader2 size={10} className="animate-spin" />
@@ -408,7 +408,7 @@ export function InterestsClient({ role, initialTab }: { role: string; initialTab
                 <div className="flex items-center gap-2 mt-3">
                   <Link
                     href={`/messages?c=${item.conversationId}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
                   >
                     <MessageSquare size={10} /> Message
                   </Link>

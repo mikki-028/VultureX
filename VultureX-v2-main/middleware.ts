@@ -12,6 +12,10 @@ const PROTECTED_ROUTES = [
   "/saved",
   "/interests",
   "/messages",
+  "/knowledge-hub/for-you/profile",
+  "/knowledge-hub/roadmap",
+  "/knowledge-hub/for-you/saved",
+  "/knowledge-hub/for-you/reminders",
 ];
 
 export function middleware(request: NextRequest) {

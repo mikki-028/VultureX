@@ -144,7 +144,7 @@ export default function StartupOnboardingPage() {
           <div key={label} className="flex-1">
             <div
               className={`h-1.5 rounded-full transition-colors ${
-                i <= step ? "bg-[var(--accent)]" : "bg-[var(--border)]"
+                i <= step ? "bg-[var(--accent-fill)]" : "bg-[var(--border)]"
               }`}
             />
             <p className={`text-xs mt-1.5 ${i === step ? "font-medium" : "text-[var(--text-muted)]"}`}>
@@ -177,7 +177,7 @@ export default function StartupOnboardingPage() {
             <button
               onClick={next}
               disabled={step === 0 && (!data.name || !data.sector)}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
             >
               Next <ArrowRight size={16} />
             </button>
@@ -185,7 +185,7 @@ export default function StartupOnboardingPage() {
             <button
               onClick={submit}
               disabled={loading}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
             >
               {loading ? "Saving..." : "Complete Profile"}
               <Check size={16} />

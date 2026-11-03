@@ -318,7 +318,7 @@ export function SummaryEditor({
               <button
                 onClick={approve}
                 disabled={approving}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
               >
                 {approving ? <Loader2 size={12} className="animate-spin" /> : <ShieldCheck size={12} />}
                 Approve Summary
@@ -337,7 +337,7 @@ export function SummaryEditor({
               <button
                 onClick={reopen}
                 disabled={approving}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
               >
                 <Undo2 size={12} /> Reopen &amp; re-approve
               </button>
@@ -348,7 +348,7 @@ export function SummaryEditor({
             <button
               onClick={approve}
               disabled={approving}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
             >
               <Check size={12} /> Save &amp; re-approve
             </button>

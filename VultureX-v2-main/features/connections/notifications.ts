@@ -22,6 +22,7 @@ export type NotificationItem = {
   conversationId: string | null;
   competitionId: string | null;
   applicationId: string | null;
+  reminderId: string | null;
   href: string;
 };
 
@@ -34,6 +35,7 @@ function hrefFor(
   if (type === "message" || type === "request_accepted") {
     return conversationId ? `/messages?c=${conversationId}` : "/messages";
   }
+  if (type === "reminder_due") return "/knowledge-hub/for-you/reminders";
   if (type === "business_match") return "/discover";
   if (type.startsWith("competition")) {
     if (!competitionId) return "/competitions";
@@ -67,6 +69,7 @@ export async function getNotifications(userId: string) {
       conversationId: notifications.conversationId,
       competitionId: notifications.competitionId,
       applicationId: notifications.applicationId,
+      reminderId: notifications.reminderId,
       requestStatus: connectionRequests.status,
       recipientRole: users.role,
     })
@@ -96,6 +99,7 @@ export async function getNotifications(userId: string) {
     conversationId: row.conversationId,
     competitionId: row.competitionId,
     applicationId: row.applicationId,
+    reminderId: row.reminderId,
     href: hrefFor(
       row.type,
       row.conversationId,

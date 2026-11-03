@@ -863,7 +863,7 @@ export function CompetitionForm({ initial }: { initial: CompetitionFormInitial }
               type="button"
               onClick={() => save("submit")}
               disabled={saving !== null}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-50"
             >
               {saving === "submit" && <Loader2 size={12} className="animate-spin" />}
               Submit for review

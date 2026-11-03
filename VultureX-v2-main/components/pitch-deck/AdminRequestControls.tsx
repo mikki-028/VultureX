@@ -171,7 +171,7 @@ export function AdminRequestControls({
         {uploading && (
           <div className="mt-3 h-1 rounded-full bg-[var(--bg-elevated)] overflow-hidden">
             <div
-              className="h-full rounded-full bg-[var(--accent)] transition-all"
+              className="h-full rounded-full bg-[var(--accent-fill)] transition-all"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -241,7 +241,7 @@ export function AdminRequestControls({
               <button
                 onClick={() => setConfirmPublish(true)}
                 disabled={!selectedFileId || !hasApprovedSummary || status === "completed"}
-                className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-40 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-40 transition-colors"
               >
                 <Megaphone size={12} /> Publish Pitch Deck
               </button>
@@ -254,7 +254,7 @@ export function AdminRequestControls({
                   <button
                     onClick={publish}
                     disabled={publishing}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50"
                   >
                     {publishing && <Loader2 size={11} className="animate-spin" />}
                     Confirm publication

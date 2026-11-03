@@ -116,7 +116,7 @@ export default async function PitchDecksPage() {
                       {request.status === "incomplete" && (
                         <Link
                           href={`/pitch-decks/${request.id}/questionnaire`}
-                          className="px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                          className="px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
                         >
                           {progress > 0 ? `Resume batch ${request.currentBatch}` : "Start questionnaire"}
                         </Link>
@@ -124,7 +124,7 @@ export default async function PitchDecksPage() {
                       {request.status === "pending_approval" && (
                         <Link
                           href={`/pitch-decks/${request.id}/summary`}
-                          className="px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                          className="px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
                         >
                           Review &amp; approve summary
                         </Link>
@@ -168,7 +168,7 @@ export default async function PitchDecksPage() {
                     <div className="mt-4">
                       <div className="h-1 rounded-full bg-[var(--bg-elevated)] overflow-hidden">
                         <div
-                          className="h-full rounded-full bg-[var(--accent)]"
+                          className="h-full rounded-full bg-[var(--accent-fill)]"
                           style={{ width: `${progress}%` }}
                         />
                       </div>

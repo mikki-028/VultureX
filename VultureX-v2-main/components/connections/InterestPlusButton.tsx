@@ -120,7 +120,7 @@ export function InterestPlusButton({
 
   if (!authenticated) {
     content = (
-      <Link href={loginHref} className={`${base} ${size} bg-[var(--accent)] text-[#171717] hover:bg-[var(--accent-hover)]`}>
+      <Link href={loginHref} className={`${base} ${size} bg-[var(--accent-fill)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]`}>
         <Plus size={compact ? 10 : 12} /> Interest+
       </Link>
     );
@@ -174,7 +174,7 @@ export function InterestPlusButton({
         disabled={sending}
         aria-busy={sending}
         title={targetName ? `Send an Interest+ request to ${targetName}` : "Send an Interest+ request"}
-        className={`${base} ${size} bg-[var(--accent)] text-[#171717] hover:bg-[var(--accent-hover)]`}
+        className={`${base} ${size} bg-[var(--accent-fill)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]`}
       >
         {sending ? <Loader2 size={compact ? 10 : 12} className="animate-spin" /> : <Plus size={compact ? 10 : 12} />}
         {sending ? "Sending" : "Interest+"}

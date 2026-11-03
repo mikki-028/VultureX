@@ -103,7 +103,7 @@ function StartupDashboard({ data }: { data: StartupData }) {
                   <div className="flex-1 h-1.5 rounded-full bg-[var(--bg-elevated)] overflow-hidden">
                     <motion.div initial={{ width: 0 }} animate={{ width: `${(item.value / item.max) * 100}%` }}
                       transition={{ duration: 0.6, delay: 0.4 + i * 0.08, ease: "easeOut" }}
-                      className="h-full rounded-full bg-[var(--accent)]" />
+                      className="h-full rounded-full bg-[var(--accent-fill)]" />
                   </div>
                   <span className="text-[11px] text-[var(--text-muted)] w-8 text-right tabular-nums">{item.value}/{item.max}</span>
                 </motion.div>
@@ -206,7 +206,7 @@ function InvestorDashboard({ data }: { data: InvestorData }) {
           <p className="text-xs text-[var(--text-muted)]">{data.firmName || "Angel Investor"} · {data.sectors.slice(0, 3).join(", ")}</p>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/messages" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors">
+          <Link href="/messages" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors">
             <MessageSquare size={11} /> Messages
           </Link>
           <Link href="/interests" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] border border-[var(--border)] text-[var(--text-muted)] rounded-md hover:text-[var(--text-secondary)] hover:border-[var(--border-hover)] transition-colors">

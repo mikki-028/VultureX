@@ -241,7 +241,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
                     </div>
                     <div className="h-1.5 rounded-full bg-[var(--bg-elevated)] overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-[var(--accent)]"
+                        className="h-full rounded-full bg-[var(--accent-fill)]"
                         style={{ width: `${Math.min(100, criterion.weight)}%` }}
                       />
                     </div>
@@ -394,7 +394,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
               {detail.canReview && (
                 <Link
                   href={`/admin/competitions/${competition.id}`}
-                  className="block text-center px-3 py-2 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                  className="block text-center px-3 py-2 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
                 >
                   Open admin review
                 </Link>

@@ -61,7 +61,7 @@ export function ImpactReviewControls({
           type="button"
           onClick={() => review("verified")}
           disabled={busy !== null}
-          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[10px] font-medium rounded-md bg-[var(--accent)] text-[#171717] hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[10px] font-medium rounded-md bg-[var(--accent-fill)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
         >
           {busy === "verified" ? <Loader2 size={9} className="animate-spin" /> : <Check size={9} />}
           Verify impact

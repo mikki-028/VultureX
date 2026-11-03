@@ -58,7 +58,7 @@ export default async function AdminPage() {
             >
               <ShieldCheck size={12} /> Impact verification
               {Number(pendingImpact.count) > 0 && (
-                <span className="min-w-[16px] h-[16px] px-1 rounded-full bg-[var(--accent)] text-[#171717] text-[9px] font-bold flex items-center justify-center tabular-nums">
+                <span className="min-w-[16px] h-[16px] px-1 rounded-full bg-[var(--accent-fill)] text-[var(--accent-foreground)] text-[9px] font-bold flex items-center justify-center tabular-nums">
                   {Number(pendingImpact.count)}
                 </span>
               )}
@@ -71,7 +71,7 @@ export default async function AdminPage() {
             </Link>
             <Link
               href="/admin/pitch-decks"
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
             >
               <Presentation size={12} /> Pitch Deck Requests
             </Link>

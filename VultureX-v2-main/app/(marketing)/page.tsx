@@ -46,7 +46,7 @@ export default async function HomePage() {
           <p className="text-sm text-[var(--text-secondary)] mb-10 max-w-md mx-auto">
             Free for startups. Free for investors. We only make money when you close a deal.
           </p>
-          <Link href="/signup" className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium bg-[var(--accent)] text-[#050505] rounded-md hover:bg-[var(--accent-hover)] transition-colors">
+          <Link href="/signup" className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors">
             Get started <ArrowRight size={14} />
           </Link>
           <p className="mt-4 text-xs text-[var(--text-muted)]">3% success fee on close · Verified impact startups: 0%</p>

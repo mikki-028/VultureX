@@ -55,7 +55,7 @@ export function StartRequestButton({
     "inline-flex items-center gap-2 font-medium rounded-md transition-colors disabled:opacity-50";
   const sizes = { sm: "px-3 py-1.5 text-[11px]", md: "px-4 py-2 text-xs" };
   const variants = {
-    primary: "bg-[var(--accent)] text-[#171717] hover:bg-[var(--accent-hover)]",
+    primary: "bg-[var(--accent-fill)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]",
     secondary: "border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:border-[var(--border-hover)]",
   };
 

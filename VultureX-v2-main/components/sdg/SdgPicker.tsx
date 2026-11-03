@@ -61,7 +61,7 @@ export function SdgPicker({ value, primary, onChange, disabled, hideHint }: Prop
             >
               <span
                 aria-hidden
-                className="w-4 h-4 shrink-0 rounded-[3px] text-[9px] font-bold text-[#171717] flex items-center justify-center tabular-nums"
+                className="w-4 h-4 shrink-0 rounded-[3px] text-[9px] font-bold text-[var(--accent-foreground)] flex items-center justify-center tabular-nums"
                 style={{ backgroundColor: sdgColor(goal.id) }}
               >
                 {goal.id}

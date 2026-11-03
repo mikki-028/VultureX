@@ -284,7 +284,7 @@ export function CompetitionsClient({
                 </div>
                 <Link
                   href="/competitions/host"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
                 >
                   <PlusCircle size={12} /> New proposal
                 </Link>
@@ -349,7 +349,7 @@ export function CompetitionsClient({
               </p>
               <Link
                 href="/admin/competitions"
-                className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
               >
                 Open competition review
               </Link>
@@ -377,7 +377,7 @@ export function CompetitionsClient({
               </p>
               <Link
                 href="/login?callbackUrl=/competitions?tab=host"
-                className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+                className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
               >
                 Sign in
               </Link>

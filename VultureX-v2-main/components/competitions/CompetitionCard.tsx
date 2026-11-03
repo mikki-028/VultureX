@@ -151,7 +151,7 @@ export function CompetitionCard({
             className={`px-3 py-1.5 text-[11px] font-medium rounded-md transition-colors ${
               isUpcoming
                 ? "border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
-                : "bg-[var(--accent)] text-[#171717] hover:bg-[var(--accent-hover)]"
+                : "bg-[var(--accent-fill)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]"
             }`}
           >
             {isUpcoming ? "View details" : "Apply now"}

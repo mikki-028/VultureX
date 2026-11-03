@@ -132,7 +132,7 @@ export function ApplyPanel({
           </p>
           <Link
             href={`/login?callbackUrl=/competitions/${competitionId}`}
-            className="block text-center px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+            className="block text-center px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
           >
             Sign in to apply
           </Link>
@@ -263,7 +263,7 @@ export function ApplyPanel({
           type="button"
           onClick={() => setStep("confirm")}
           disabled={blocked || needsInfo}
-          className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <Trophy size={12} /> Apply now
         </button>
@@ -288,7 +288,7 @@ export function ApplyPanel({
               type="button"
               onClick={apply}
               disabled={loading}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-50"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-50"
             >
               {loading ? (
                 <Loader2 size={12} className="animate-spin" />

@@ -136,7 +136,7 @@ export function ImpactVerificationCard({
             type="button"
             onClick={() => act("submit")}
             disabled={!canSubmit || busy !== null}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {busy === "submit" && <Loader2 size={10} className="animate-spin" />}
             {status === "verified" ? "Claim verified" : "Request verification"}

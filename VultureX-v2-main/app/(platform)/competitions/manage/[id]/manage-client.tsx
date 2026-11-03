@@ -600,7 +600,7 @@ function EvaluationForm({
           type="button"
           onClick={save}
           disabled={saving}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] disabled:opacity-50 transition-colors"
         >
           {saving && <Loader2 size={10} className="animate-spin" />}
           Save evaluation

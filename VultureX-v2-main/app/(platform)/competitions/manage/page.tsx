@@ -37,7 +37,7 @@ export default async function ManageCompetitionsPage() {
         action={
           <Link
             href="/competitions/host"
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent)] text-[#171717] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-[var(--accent-fill)] text-[var(--accent-foreground)] rounded-md hover:bg-[var(--accent-hover)] transition-colors"
           >
             <PlusCircle size={12} /> New proposal
           </Link>
