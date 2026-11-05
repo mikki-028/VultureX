@@ -64,6 +64,20 @@
       "when": 1793735746743,
       "tag": "0008_saved_resources_reminders",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1793817600000,
+      "tag": "0009_bookmarks",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793904000000,
+      "tag": "0010_startups_owner_select",
+      "breakpoints": true
     }
   ]
 }

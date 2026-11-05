@@ -16,6 +16,9 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+# Migration credentials and database dumps - never commit
+.env.migration
+.migration/
 
 # Editor directories and files
 .vscode/*
