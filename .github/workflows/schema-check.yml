@@ -1,0 +1,70 @@
+name: Schema check
+
+# Static validation of the migration history and Drizzle schema declarations.
+# It never connects to a database, so no DATABASE_URL or Supabase credential is
+# needed. This is not live schema parity: see VultureX-v2-main/docs/schema-validation.md.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Least privilege: the job only reads the repository.
+permissions:
+  contents: read
+
+concurrency:
+  group: schema-check-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: VultureX-v2-main
+
+jobs:
+  schema:
+    name: Validate schema and migrations
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: VultureX-v2-main/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate migration chain with drizzle-kit
+        run: pnpm exec drizzle-kit check
+
+      - name: Validate schema and migration files
+        run: pnpm run check:schema
+
+      - name: Run unit tests
+        run: |
+          pnpm run test:matchmaking
+          pnpm run test:sdg
+          pnpm run test:roadmap
+          pnpm run test:reminders
+          pnpm run test:saved-resources
+
+      # Type-checks the whole app against the current schema. Placeholder values
+      # only: no database is reachable from this job and nothing is migrated.
+      - name: Production build
+        env:
+          DATABASE_URL: postgres://ci-placeholder:ci-placeholder@127.0.0.1:5432/ci-placeholder
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: pnpm run build
